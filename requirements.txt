@@ -1,0 +1,5 @@
+aiogram==3.*
+langchain
+langgraph
+langchain-openai
+python-dotenv
