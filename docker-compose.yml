@@ -2,17 +2,18 @@ version: '3.9'
 
 services:
   postgres:
-    image: ankane/pgvector:latest 
-    container_name: chatbot_postgres
+    image: ankane/pgvector:latest
+    container_name: fitness_postgres
     restart: always
     environment:
-      POSTGRES_USER: botuser
-      POSTGRES_PASSWORD: botpassword
-      POSTGRES_DB: botdb
+      POSTGRES_PASSWORD: postgres_pass
     ports:
-      - "5432:5432"
+      - "5433:5432"  # Сдвинем порт, чтобы избежать конфликта с локальным 5432
     volumes:
       - pgdata:/var/lib/postgresql/data
-
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 5s
+      retries: 5
 volumes:
   pgdata:
